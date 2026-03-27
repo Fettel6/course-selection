@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>静态ECharts测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #chart {
+            width: 800px;
+            height: 500px;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>静态ECharts测试</h1>
+    <div id="chart"></div>
+    
+    <script>
+        // 确保页面加载完成
+        window.onload = function() {
+            console.log('Page loaded');
+            console.log('ECharts version:', echarts.version);
+            
+            // 获取图表容器
+            var container = document.getElementById('chart');
+            console.log('Chart container:', container);
+            
+            // 初始化图表
+            var chart = echarts.init(container);
+            console.log('Chart initialized:', chart);
+            
+            // 配置项
+            var option = {
+                title: {
+                    text: '课程分数分布统计',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['选课人数'],
+                    bottom: 10
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['高等数学', '大学英语', '计算机基础', '数据结构', '算法设计'],
+                    axisLabel: {
+                        rotate: 45
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '人数'
+                },
+                series: [{
+                    name: '选课人数',
+                    type: 'bar',
+                    data: [12, 15, 10, 8, 7],
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {offset: 0, color: '#83bff6'},
+                            {offset: 0.5, color: '#188df0'},
+                            {offset: 1, color: '#188df0'}
+                        ])
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                {offset: 0, color: '#2378f7'},
+                                {offset: 0.7, color: '#2378f7'},
+                                {offset: 1, color: '#83bff6'}
+                            ])
+                        }
+                    }
+                }]
+            };
+            
+            console.log('Chart option:', option);
+            
+            // 渲染图表
+            chart.setOption(option);
+            console.log('Chart rendered');
+            
+            // 响应式调整
+            window.addEventListener('resize', function() {
+                chart.resize();
+                console.log('Chart resized');
+            });
+        };
+    </script>
+</body>
+</html>

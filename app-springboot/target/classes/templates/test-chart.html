@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts 测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div id="testChart" style="width: 600px; height: 400px;"></div>
+    <script>
+        // 初始化图表
+        var chart = echarts.init(document.getElementById('testChart'));
+        
+        // 配置项
+        var option = {
+            title: {
+                text: 'ECharts 测试图表'
+            },
+            tooltip: {},
+            xAxis: {
+                data: ['A', 'B', 'C', 'D', 'E']
+            },
+            yAxis: {},
+            series: [{
+                name: '测试数据',
+                type: 'bar',
+                data: [10, 20, 30, 40, 50]
+            }]
+        };
+        
+        // 渲染图表
+        chart.setOption(option);
+    </script>
+</body>
+</html>

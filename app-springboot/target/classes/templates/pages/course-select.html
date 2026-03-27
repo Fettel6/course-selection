@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>学生选课</title>
+    <script>
+        function selectCourse(id) {
+            if(confirm("确定选择这门课程吗")){
+                $.ajax({
+                    type: "GET",
+                    url: "doSelect?courseId="+id,
+                    success: function (data) {
+                        alert(data.message);
+                        if(data.success){
+                            location.href="selectCourse";
+                        }
+                    },
+                    error: function () {
+                        alert("请求服务器失败，请检查Java控制台报错!");
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+
+<body data-theme="default">
+<div layout:fragment="content">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"><h4>学生选课</h4></div>
+
+                    <div class="card-body">
+                        <form class="form-inline" action="/courseSelection/selectCourse" method="get">
+                            <input type="hidden" name="current" th:value="${pager.getPageIndex() }"/>
+                            <input type="hidden" name="limit" th:value="${pager.getPageSize() }"/>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="">课程号</label>
+                                    <input th:value="${courseno}" maxlength="20" class="form-control" name="courseno"
+                                           placeholder="请输入课程号">
+                                </div>
+                                <div class="form-group">
+                                    <label class="">课程名称</label>
+                                    <input th:value="${name}" maxlength="50" class="form-control" name="name"
+                                           placeholder="请输入课程名称">
+                                </div>
+                                <div class="form-group">
+                                    <label class="">任课教师</label>
+                                    <input th:value="${teacher}" maxlength="20" class="form-control" name="teacher"
+                                           placeholder="请输入任课教师">
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">查 询</button>
+                                </div>
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>课程号</th>
+                                        <th>课程名称</th>
+                                        <th>学分</th>
+                                        <th>任课教师</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="i,s : ${ courseList }">
+                                        <th scope="row" th:text="${s.count}"></th>
+                                        <td th:text="${ i.courseno }"></td>
+                                        <td th:text="${ i.name }"></td>
+                                        <td th:text="${ i.credit }"></td>
+                                        <td th:text="${ i.teacher }"></td>
+                                        <td th:text="${#dates.format( i.createtime ,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td>
+                                            <a th:href="${ '/course/detail?id='+ i.id}" class="btn btn-xs btn-success">查看</a>
+                                            <button type="button" th:onclick="selectCourse([[${i.id}]])" class="btn btn-xs btn-primary">选课
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        <div th:insert="~{_pager_footer::pagebar(pager=${pager},formId='page_form')}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
