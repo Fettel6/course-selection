@@ -3,6 +3,12 @@
 ## 项目简介
 学生选课管理系统是一个基于Spring Boot的Web应用，用于管理学生、课程和选课信息。系统支持管理员和学生两种角色，实现了学生管理、课程管理、选课管理等核心功能，并提供了数据可视化统计。
 
+## 项目预览
+![系统登录页面](https://img.shields.io/badge/Status-Active-brightgreen)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-blue)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
+![ECharts](https://img.shields.io/badge/ECharts-5.4.3-purple)
+
 ## 技术栈
 - **后端**：Spring Boot 3.5.0 + MyBatis Plus 3.5.7
 - **前端**：Thymeleaf + Bootstrap 3.3.7 + ECharts 5.4.3
